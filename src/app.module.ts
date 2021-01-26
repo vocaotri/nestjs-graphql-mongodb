@@ -12,10 +12,14 @@ import { UserService } from './user/user.service';
 import { UserSchema } from './user/user.schema';
 import { ConfigModule } from '@nestjs/config';
 import { JWTService } from './user/jwt/JWTToken';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'hobbies', schema:  HobbySchema},{ name: 'users', schema:  UserSchema}]),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),

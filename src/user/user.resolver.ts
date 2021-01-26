@@ -23,8 +23,8 @@ export class UserResolver {
         const user = await this.jwtService.verifyAccessToken(token);
         if (Object.keys(user).length === 0)
             throw new Error("Token failed")
-        pubSub.publish('userAdded', { userAdded: user });
         const userCreate = await this.userService.create(newUserData);
+        pubSub.publish('userAdded', { userAdded: newUserData });
         return userCreate;
     }
     @Mutation(() => User)

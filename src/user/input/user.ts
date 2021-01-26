@@ -1,5 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { HobbyInput } from 'src/hobby/input/hobby';
+import { GraphQLUpload } from 'apollo-server-express';
+import { FileUpload } from 'graphql-upload';
+import { Exclude } from 'class-transformer';
+// import { HobbyInput } from 'src/hobby/input/hobby';
 
 
 @InputType()
@@ -12,6 +15,9 @@ export class UserInput {
   email: string;
   @Field(type => String)
   password: string;
-  @Field(()=>[String], { nullable: true })
+  @Exclude()
+  @Field(type => GraphQLUpload, { nullable: true })
+  avatar?: FileUpload;
+  @Field(() => [String], { nullable: true })
   hobbies?: string[];
 }

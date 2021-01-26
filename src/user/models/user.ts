@@ -10,6 +10,9 @@ export class User {
   @Field(type => Date, { name: 'registeredAt' })
   createdAt: Date;
 
+  @Field({ nullable: true })
+  avatar: string;
+
   @Field(type => Date)
   updatedAt: Date;
 

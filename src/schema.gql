@@ -10,6 +10,7 @@ type Hobby {
 type User {
   id: String
   registeredAt: DateTime!
+  avatar: String
   updatedAt: DateTime!
   email: String!
   access_token: String
@@ -38,8 +39,12 @@ input UserInput {
   name: String
   email: String!
   password: String!
+  avatar: Upload
   hobbies: [String!]
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input HobbyInput {
   id: String
