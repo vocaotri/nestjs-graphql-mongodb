@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { UserInput } from './input/user';
 import { User } from './interface/user';
 import *  as bcrypt from 'bcrypt';
+var path = require('path');
 import { createWriteStream } from 'fs';
 @Injectable()
 export class UserService {
@@ -12,7 +13,8 @@ export class UserService {
   async create(createUser: UserInput): Promise<User> {
     let url = "";
     const { filename, createReadStream } = await createUser.avatar;
-    const stream = await createReadStream().pipe(createWriteStream(`./public/products/${Date.now() + filename}`));
+    const fileEXT = path.extname(filename)
+    const stream = await createReadStream().pipe(createWriteStream(`./public/products/${Date.now() + fileEXT}`));
     url = stream.path.toString().replace('./public/', '');
     const hashedPassword = await bcrypt.hash(createUser.password, 11);
     const createdUser = new this.userModel({ ...createUser, password: hashedPassword, avatar: url ?? "" });
