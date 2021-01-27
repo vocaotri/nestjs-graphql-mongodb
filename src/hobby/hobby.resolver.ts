@@ -1,3 +1,4 @@
+import { PaginateInput } from './input/paginate';
 import { Hobby } from './models/hobby';
 import { HobbyService } from './hobby.service';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
@@ -8,8 +9,8 @@ const pubSub = new PubSub();
 export class HobbyResolver {
     constructor(private readonly hobbyService : HobbyService){}
     @Query(()=>[Hobby])
-    async hobbies(){
-        return this.hobbyService.findAll();
+    async hobbies(@Args('paginate') paginate: PaginateInput){
+        return this.hobbyService.findAll(paginate);
     }
     @Mutation(returns =>Hobby)
     async addHobby(@Args('newHobbyData') newHobbyData:HobbyInput):Promise<Hobby>{

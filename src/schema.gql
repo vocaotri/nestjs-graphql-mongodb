@@ -25,7 +25,12 @@ scalar DateTime
 
 type Query {
   users: [User!]!
-  hobbies: [Hobby!]!
+  hobbies(paginate: PaginateInput!): [Hobby!]!
+}
+
+input PaginateInput {
+  limit: Float
+  skip: Float
 }
 
 type Mutation {
