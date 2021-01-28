@@ -26,7 +26,7 @@ import { GraphQLError, GraphQLFormattedError } from 'graphql';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       formatError: (error: GraphQLError) => {
         const graphQLFormattedError: GraphQLFormattedError = {
-          message: error.extensions.exception.response ? error.extensions.exception.response.message : error.message,
+          message: error.extensions.exception.response ? error.extensions.exception.response.message : JSON.parse(error.message),
         };
         return graphQLFormattedError;
       },

@@ -25,7 +25,7 @@ export class JWTService {
         };
         const user = await this.verifyAccessToken(token);
         if (Object.keys(user).length === 0){
-            throw new Error("Token fail");
+            throw new Error(JSON.stringify(["Token Fail"]));
         }
         return user;
     }
