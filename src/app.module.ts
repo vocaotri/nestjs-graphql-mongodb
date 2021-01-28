@@ -13,21 +13,28 @@ import { UserSchema } from './user/user.schema';
 import { ConfigModule } from '@nestjs/config';
 import { JWTService } from './user/jwt/JWTToken';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'hobbies', schema:  HobbySchema},{ name: 'users', schema:  UserSchema}]),
+    MongooseModule.forFeature([{ name: 'hobbies', schema: HobbySchema }, { name: 'users', schema: UserSchema }]),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
     GraphQLModule.forRoot({
       installSubscriptionHandlers: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      formatError: (error: GraphQLError) => {
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message: error.extensions.exception.response ? error.extensions.exception.response.message : error.message,
+        };
+        return graphQLFormattedError;
+      },
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRoot('mongodb://localhost/nest')
   ],
   controllers: [AppController],
-  providers: [AppService, UserResolver, HobbyResolver, HobbyService, UserService,JWTService],
+  providers: [AppService, UserResolver, HobbyResolver, HobbyService, UserService, JWTService],
 })
-export class AppModule {}
+export class AppModule { }

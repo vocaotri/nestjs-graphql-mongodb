@@ -2,6 +2,7 @@ import { InputType, Field } from '@nestjs/graphql';
 import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 import { Exclude } from 'class-transformer';
+import { IsEmail } from 'class-validator';
 // import { HobbyInput } from 'src/hobby/input/hobby';
 
 
@@ -11,6 +12,7 @@ export class UserInput {
   readonly id?: string;
   @Field({ nullable: true })
   readonly name?: string;
+  @IsEmail({}, { message: 'Invalid email message cc' })
   @Field(type => String)
   email: string;
   @Field(type => String)
