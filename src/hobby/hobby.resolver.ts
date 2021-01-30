@@ -5,11 +5,12 @@ import { Args, Mutation, Query, Resolver, Subscription, Context } from '@nestjs/
 import { HobbyInput } from './input/hobby';
 import { PubSub } from 'apollo-server-express';
 import { JWTService } from '../user/jwt/JWTToken';
+import { PaginateHobby } from './dto/paginate.hobby';
 const pubSub = new PubSub();
 @Resolver()
 export class HobbyResolver {
     constructor(private readonly hobbyService: HobbyService, private readonly jwtService: JWTService) { }
-    @Query(() => [Hobby])
+    @Query(() => PaginateHobby)
     async hobbies(@Args('paginate') paginate: PaginateInput) {
         return this.hobbyService.findAll(paginate);
     }

@@ -12,10 +12,12 @@ export class UserService {
   constructor(@InjectModel('users') private readonly userModel: Model<User>, private readonly jwtService: JWTService) { }
   async create(createUser: UserInput): Promise<User> {
     let url = "";
-    const { filename, createReadStream } = await createUser.avatar;
-    const fileEXT = path.extname(filename)
-    const stream = await createReadStream().pipe(createWriteStream(`./public/products/${Date.now() + fileEXT}`));
-    url = stream.path.toString().replace('./public/', '');
+    if (createUser.avatar) {
+      const { filename, createReadStream } = await createUser.avatar;
+      const fileEXT = path.extname()
+      const stream = await createReadStream().pipe(createWriteStream(`./public/products/${Date.now() + fileEXT}`));
+      url = stream.path.toString().replace('./public/', '');
+    }
     const hashedPassword = await bcrypt.hash(createUser.password, 11);
     const createdUser = new this.userModel({ ...createUser, password: hashedPassword, avatar: url ?? "" });
     const user = await createdUser.save().then(newUser => newUser.populate('hobbies').execPopulate());
