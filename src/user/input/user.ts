@@ -3,7 +3,6 @@ import { GraphQLUpload } from 'apollo-server-express';
 import { FileUpload } from 'graphql-upload';
 import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
-// import { HobbyInput } from 'src/hobby/input/hobby';
 
 
 @InputType()

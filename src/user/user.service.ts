@@ -14,7 +14,7 @@ export class UserService {
     let url = "";
     if (createUser.avatar) {
       const { filename, createReadStream } = await createUser.avatar;
-      const fileEXT = path.extname()
+      const fileEXT = path.extname(filename);
       const stream = await createReadStream().pipe(createWriteStream(`./public/products/${Date.now() + fileEXT}`));
       url = stream.path.toString().replace('./public/', '');
     }
