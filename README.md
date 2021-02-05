@@ -71,5 +71,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-# Vue 3 for this is available now, let's start:
+## Vue 3 for this is available now, let's start:
 - Github: https://github.com/vocaotri/vuejs-graphql-apollo
