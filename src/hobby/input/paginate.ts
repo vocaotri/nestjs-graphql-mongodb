@@ -1,9 +1,9 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class PaginateInput {
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   readonly limit?: number;
-  @Field({ nullable: true })
+  @Field(type => Int, { nullable: true })
   readonly page?: number;
 }

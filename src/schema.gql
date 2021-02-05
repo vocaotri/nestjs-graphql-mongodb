@@ -37,13 +37,14 @@ type Query {
 }
 
 input PaginateInput {
-  limit: Float
-  page: Float
+  limit: Int
+  page: Int
 }
 
 type Mutation {
   addUser(newUserData: UserInput!): User!
   login(loginUserData: UserInput!): User!
+  deleteUser(id: String!): Boolean!
   addHobby(newHobbyData: HobbyInput!): Hobby!
 }
 

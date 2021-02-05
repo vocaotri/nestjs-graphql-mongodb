@@ -46,7 +46,7 @@ export class UserService {
     return user;
   }
   async findAll(): Promise<User[]> {
-    return await this.userModel.find().populate('hobbies').exec();
+    return await this.userModel.find().populate('hobbies').sort({ createdAt: -1 }).exec();
   }
   async remove(id: string): Promise<Boolean> {
     await (await this.userModel.findById(id)).delete();
